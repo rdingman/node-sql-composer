@@ -1,0 +1,24 @@
+{
+  "name": "sql-composer",
+  "version": "0.0.1",
+  "description": "Node.js SQL composition module",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rdingman/node-sql-composer"
+  },
+  "keywords": [
+    "SQL",
+    "query",
+    "builder",
+    "generator",
+    "composer",
+    "composition"
+  ],
+  "author": "Ryan Dingman",
+  "license": "BSD",
+  "readmeFilename": "README.md"
+}
