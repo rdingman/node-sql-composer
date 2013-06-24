@@ -5,7 +5,7 @@
     "main": "./lib/index.js",
     "scripts": {
         "test": "nodeunit ./test",
-        "lint": "jshint **/*.js"
+        "lint": "find . -name '*.js' -and -not -path './node_modules/*' -exec jshint {} \\;"
     },
     "repository": {
         "type": "git",
