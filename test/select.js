@@ -46,6 +46,5 @@ exports.select = {
         test.equal(query.sql, 'select col1, col2, col3 from table1 t1 limit 100 offset 5');
         test.done();
     }
-}
-
+};
 

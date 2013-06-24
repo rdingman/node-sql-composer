@@ -4,7 +4,7 @@
     "description": "Node.js SQL composer",
     "main": "./lib/index.js",
     "scripts": {
-        "test": "nodeunit ./test"
+        "test": "jshint **/*.js && nodeunit ./test"
     },
     "repository": {
         "type": "git",
@@ -21,6 +21,7 @@
     "author": "Ryan Dingman",
     "readmeFilename": "README.md",
     "devDependencies": {
-        "nodeunit": "0.8.0"
+        "nodeunit" : "0.8.0",
+        "jshint"   : "*"
     }
 }

@@ -9,6 +9,5 @@ exports.insert = {
     "insert with subquery": function (test) {
         test.done();
     }
-}
-
+};
 
