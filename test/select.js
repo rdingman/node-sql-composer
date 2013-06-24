@@ -16,6 +16,23 @@ exports.select = {
         test.done();
     },
 
+    "Where clause": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : 123 });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = ?');
+        test.deepEqual(query.values, [ 123 ]);
+        test.done();
+    },
+
+    "Where clause 2": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : 'abc' });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = ?');
+        test.deepEqual(query.values, [ 'abc' ]);
+        test.done();
+    },
+
+
     "Order by": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).orderBy({ 'col1' : null, 'col2' : 'desc' });
         var query = statement.toQuery();
