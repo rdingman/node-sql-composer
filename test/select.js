@@ -32,6 +32,14 @@ exports.select = {
         test.done();
     },
 
+    "Where clause 3": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : true });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = true');
+        test.deepEqual(query.values, [ ]);
+        test.done();
+    },
+
 
     "Order by": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).orderBy({ 'col1' : null, 'col2' : 'desc' });
