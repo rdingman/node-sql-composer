@@ -16,7 +16,7 @@ exports.select = {
         test.done();
     },
 
-    "Where clause": function (test) {
+    "Where clause with number": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : 123 });
         var query = statement.toQuery();
         test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = ?');
@@ -24,7 +24,7 @@ exports.select = {
         test.done();
     },
 
-    "Where clause 2": function (test) {
+    "Where clause with string": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : 'abc' });
         var query = statement.toQuery();
         test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = ?');
@@ -32,7 +32,7 @@ exports.select = {
         test.done();
     },
 
-    "Where clause 3": function (test) {
+    "Where clause with boolean": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : true });
         var query = statement.toQuery();
         test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = true');
@@ -40,6 +40,13 @@ exports.select = {
         test.done();
     },
 
+    "Where clause with null": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : null });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 is null');
+        test.deepEqual(query.values, [ ]);
+        test.done();
+    },
 
     "Order by": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).orderBy({ 'col1' : null, 'col2' : 'desc' });
