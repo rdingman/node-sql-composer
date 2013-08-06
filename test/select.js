@@ -19,8 +19,8 @@ exports.select = {
     "Where clause with number": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : 123 });
         var query = statement.toQuery();
-        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = ?');
-        test.deepEqual(query.values, [ 123 ]);
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = 123');
+        test.deepEqual(query.values, [ ]);
         test.done();
     },
 
