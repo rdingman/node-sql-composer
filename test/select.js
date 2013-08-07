@@ -57,6 +57,14 @@ exports.select = {
         test.done();
     },
 
+    "Where clause with or": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({ or: { 'col4' : null, 'col5' : 123 } });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 is null or col5 = 123');
+        test.deepEqual(query.values, [ ]);
+        test.done();
+    },
+
     "Order by": function (test) {
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).orderBy({ 'col1' : null, 'col2' : 'desc' });
         var query = statement.toQuery();
