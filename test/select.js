@@ -79,13 +79,20 @@ exports.select = {
         test.done();
     },
     
-    "select with subquery": function (test) {
+    "select with in operator and subquery": function (test) {
         var statement1 = sql.select([ 't1.col1' ]).from({'table1' : 't1'});
         var statement2 = sql.select([ 't2.col2' ]).from({ 'table2' : 't2' }).where({ 't2.col3' : sql.operator.in(statement1) });
         var query = statement2.toQuery();
         test.equal(query.sql, 'select t2.col2 from table2 t2 where t2.col3 in (select t1.col1 from table1 t1)');
         test.done();
-    }
+    },
     
+    "select with not in operator and subquery": function (test) {
+        var statement1 = sql.select([ 't1.col1' ]).from({'table1' : 't1'});
+        var statement2 = sql.select([ 't2.col2' ]).from({ 'table2' : 't2' }).where({ 't2.col3' : sql.operator.not_in(statement1) });
+        var query = statement2.toQuery();
+        test.equal(query.sql, 'select t2.col2 from table2 t2 where t2.col3 not in select t1.col1 from table1 t1');
+        test.done();
+    }
 };
 
