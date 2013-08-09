@@ -10,6 +10,17 @@ exports.functions = {
         test.deepEqual(query.values, [ 'abc' ]);
         test.done();
     }
+/*        
+    "function in select list" : function (test) {
+        // sha2(concat(u.salt, ?), 256)
+        var func = sql.func('max', sql.identifier('col1'));
+        var statement = sql.select([ func ]).from({'table1' : 't1'}).select(['col4']);
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select max(col1) from table1 t1');
+        test.deepEqual(query.values, [ 'abc' ]);
+        test.done();
+    }
+*/
 };
 
 

@@ -77,6 +77,15 @@ exports.select = {
         var query = statement.toQuery();
         test.equal(query.sql, 'select col1, col2, col3 from table1 t1 limit 100 offset 5');
         test.done();
+    },
+    
+    "select with subquery": function (test) {
+        var statement1 = sql.select([ 't1.col1' ]).from({'table1' : 't1'});
+        var statement2 = sql.select([ 't2.col2' ]).from({ 'table2' : 't2' }).where({ 't2.col3' : sql.operator.in(statement1) });
+        var query = statement2.toQuery();
+        test.equal(query.sql, 'select t2.col2 from table2 t2 where t2.col3 in (select t1.col1 from table1 t1)');
+        test.done();
     }
+    
 };
 
