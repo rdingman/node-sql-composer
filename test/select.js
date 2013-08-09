@@ -91,7 +91,7 @@ exports.select = {
         var statement1 = sql.select([ 't1.col1' ]).from({'table1' : 't1'});
         var statement2 = sql.select([ 't2.col2' ]).from({ 'table2' : 't2' }).where({ 't2.col3' : sql.operator.not_in(statement1) });
         var query = statement2.toQuery();
-        test.equal(query.sql, 'select t2.col2 from table2 t2 where t2.col3 not in select t1.col1 from table1 t1');
+        test.equal(query.sql, 'select t2.col2 from table2 t2 where t2.col3 not in (select t1.col1 from table1 t1)');
         test.done();
     }
 };
