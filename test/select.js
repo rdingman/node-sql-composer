@@ -48,6 +48,14 @@ exports.select = {
         test.done();
     },
     
+    "Where clause with not null": function (test) {
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : sql.operator.not(null) });
+        var query = statement.toQuery();
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 is not null');
+        test.deepEqual(query.values, [ ]);
+        test.done();
+    },
+    
     "Where clause with function": function (test) {
         var sha2 = sql.func('sha2', sql.func('concat', sql.identifier('salt'), 'abc'), 256);
         var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : sha2 });
