@@ -33,9 +33,9 @@ exports.select = {
     },
 
     "Where clause with boolean": function (test) {
-        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : true });
+        var statement = sql.select([ 'col1', 'col2', 'col3' ]).from({'table1' : 't1'}).where({'col4' : false });
         var query = statement.toQuery();
-        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = true');
+        test.equal(query.sql, 'select col1, col2, col3 from table1 t1 where col4 = false');
         test.deepEqual(query.values, [ ]);
         test.done();
     },
