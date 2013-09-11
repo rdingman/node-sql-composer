@@ -1,5 +1,5 @@
 
-var sql = require('../lib');
+var sql = require('../../lib');
 
 exports.select = {
     "Basic select" : function (test) {

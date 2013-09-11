@@ -4,7 +4,7 @@
     "description": "Node.js SQL composer",
     "main": "./lib/index.js",
     "scripts": {
-        "test": "nodeunit ./test",
+        "test": "nodeunit ./test/mysql && nodeunit ./test/postgres",
         "lint": "find . -name '*.js' -and -not -path './node_modules/*' -exec jshint {} \\;"
     },
     "repository": {
