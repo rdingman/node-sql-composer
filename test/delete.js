@@ -1,5 +1,5 @@
 
-var sql = require('../../lib');
+var sql = require('../lib');
 
 exports.insert = {
     "Basic delete" : function (test) {

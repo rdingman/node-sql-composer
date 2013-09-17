@@ -1,5 +1,5 @@
 
-var sql = require('../../lib');
+var sql = require('../lib');
 
 exports.functions = {
     "simple function" : function (test) {
