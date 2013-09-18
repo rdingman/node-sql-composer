@@ -19,7 +19,20 @@ exports.insert = {
         test.done();
     },
 
-    "insert with subquery": function (test) {
+    "insert with postgres returning extension": function (test) {
+        var statement = sql.insert().into('table1').values({ 'col1' : 123, 'col2' : 'Some text' }).returning([ 'id' ]);
+        
+        sql.parameterStyle = sql.PARAMETER_STYLE_UNINDEXED;
+        var query = statement.toQuery();
+        test.equal(query.sql, 'insert into table1 (col1, col2) values (123, ?) returning id');
+        test.deepEqual(query.values, [ 'Some text' ]);
+
+
+        sql.parameterStyle = sql.PARAMETER_STYLE_INDEXED;
+        var query = statement.toQuery();
+        test.equal(query.sql, 'insert into table1 (col1, col2) values (123, $1) returning id');
+        test.deepEqual(query.values, [ 'Some text' ]);
+
         test.done();
     }
 };
