@@ -216,6 +216,25 @@ exports.select = {
         test.deepEqual(query.values, [ 'abc' ]);
 
         test.done();
+    },
+    
+    "select with unioned subquery in from": function (test) {
+        var statement1 = sql.select([ 't1.col1' ]).from({'table1' : 't1'}).where({ 't1.col2' : 'abc' });
+        var statement2 = sql.select([ 't2.col1' ]).from({'table2' : 't2'}).where({ 't2.col2' : 'efg' });
+        var statement3 = statement1.union(statement2);
+        var statement4 = sql.select([ 't3.col1' ]).from(statement3, 't3');
+
+        sql.parameterStyle = sql.PARAMETER_STYLE_UNINDEXED;
+        var query = statement4.toQuery();
+        test.equal(query.sql, 'select t3.col1 from (select t1.col1 from table1 t1 where t1.col2 = ? union select t2.col1 from table2 t2 where t2.col2 = ?) t3');
+        test.deepEqual(query.values, [ 'abc', 'efg' ]);
+
+        sql.parameterStyle = sql.PARAMETER_STYLE_INDEXED;
+        var query = statement4.toQuery();
+        test.equal(query.sql, 'select t3.col1 from (select t1.col1 from table1 t1 where t1.col2 = $1 union select t2.col1 from table2 t2 where t2.col2 = $2) t3');
+        test.deepEqual(query.values, [ 'abc', 'efg' ]);
+
+        test.done();
     }
     
 };
